@@ -1,0 +1,100 @@
+networks:
+  net-iomywiab-enums:
+    name: net-iomywiab-enums
+    external: false
+
+services:
+  php-8.1-debug:
+    container_name: php-8.1-debug-iomywiab-enums
+    image: iomywiab-php-8.1-cli-debug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project/
+      - ./tmp/phpstorm/coverage/:/opt/phpstorm-coverage/
+      - ./config/xdebug.ini/:/usr/local/etc/php/conf.d/xdebug.ini
+    working_dir: /opt/project
+
+  php-8.1-nodebug:
+    container_name: php-8.1-nodebug-iomywiab-enums
+    image: iomywiab-php-8.1-cli-nodebug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+    working_dir: /opt/project
+
+  php-8.2-debug:
+    container_name: php-8.2-debug-iomywiab-enums
+    image: iomywiab-php-8.2-cli-debug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+      - ./temp/phpstorm/coverage:/opt/phpstorm-coverage
+    working_dir: /opt/project
+
+  php-8.2-nodebug:
+    container_name: php-8.2-nodebug-iomywiab-enums
+    image: iomywiab-php-8.2-cli-nodebug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+    working_dir: /opt/project
+
+  php-8.3-debug:
+    container_name: php-8.3-debug-iomywiab-enums
+    image: iomywiab-php-8.3-cli-debug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+      - ./temp/phpstorm/coverage:/opt/phpstorm-coverage
+    working_dir: /opt/project
+
+  php-8.3-nodebug:
+    container_name: php-8.3-nodebug-iomywiab-enums
+    image: iomywiab-php-8.3-cli-nodebug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+    working_dir: /opt/project
+
+  php-8.4-debug:
+    container_name: php-8.4-debug-iomywiab-enums
+    image: iomywiab-php-8.4-cli-debug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+      - ./temp/phpstorm/coverage:/opt/phpstorm-coverage
+    working_dir: /opt/project
+
+  php-8.4-nodebug:
+    container_name: php-8.4-nodebug-iomywiab-enums
+    image: iomywiab-php-8.4-cli-nodebug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+    working_dir: /opt/project
+
+  phpstan:
+    container_name: phpstan-iomywiab-enums
+    image: iomywiab-php-8.1-cli-nodebug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+    working_dir: /opt/project
+
+  composer:
+    container_name: composer-iomywiab-enums
+    image: iomywiab-php-8.1-cli-nodebug:latest
+    networks:
+      - net-iomywiab-enums
+    volumes:
+      - ./:/opt/project
+    working_dir: /opt/project
