@@ -3,7 +3,7 @@
   ~ Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
   ~ File name: phpunit.xml
   ~ Project: Enums
-  ~ Modified at: 26/07/2025, 01:21
+  ~ Modified at: 26/07/2025, 01:26
   ~ Modified by: pnehls
   -->
 
@@ -21,13 +21,13 @@
          failOnWarning="true">
     <testsuites>
         <testsuite name="default">
-            <directory suffix="Test.php">tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <source restrictDeprecations="true" restrictNotices="true" restrictWarnings="true">
         <include>
-            <directory suffix=".php">/opt/project/src</directory>
+            <directory>/opt/project/src</directory>
         </include>
     </source>
 
@@ -36,10 +36,7 @@
         <env name="APP_ENV" value="testing"/>
     </php>
 
-    <coverage includeUncoveredFiles="true"
-              pathCoverage="false"
-              ignoreDeprecatedCodeUnits="false"
-              disableCodeCoverageIgnore="true">
+    <coverage disableCodeCoverageIgnore="true">
         <report>
             <clover outputFile="/opt/project/tmp/phpstorm/coverage/clover.xml"/>
         </report>
