@@ -3,7 +3,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ImmutableEnumPrinterTest.php
  * Project: Enums
- * Modified at: 26/07/2025, 00:33
+ * Modified at: 26/07/2025, 01:51
  * Modified by: pnehls
  */
 
