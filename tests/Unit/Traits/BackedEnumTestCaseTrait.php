@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: BackedEnumTestCaseTrait.php
  * Project: Enums
- * Modified at: 29/07/2025, 07:55
+ * Modified at: 29/07/2025, 21:33
  * Modified by: pnehls
  */
 
@@ -61,6 +61,7 @@ trait BackedEnumTestCaseTrait
             /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
             TestCase::assertEquals($values[$key], $enum->value);
 
+            // @phpstan-ignore argument.type
             $enum = $anyEnumItem::fromNameOrValue($value, false);
             TestCase::assertSame($value, $enum->value);
             /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
@@ -80,12 +81,14 @@ trait BackedEnumTestCaseTrait
                 // @phpstan-ignore argument.type
                 TestCase::assertEquals($values[$key], $enum->value);
 
+                // @phpstan-ignore argument.type
                 $enum = $anyEnumItem::fromNameOrValue(strtolower($value), false);
                 TestCase::assertSame($value, $enum->value);
                 /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
                 // @phpstan-ignore argument.type
                 TestCase::assertEquals($values[$key], $enum->value);
 
+                // @phpstan-ignore argument.type
                 $enum = $anyEnumItem::fromNameOrValue(strtoupper($value), false);
                 TestCase::assertSame($value, $enum->value);
                 /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */

@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: EnumTestCaseTrait.php
  * Project: Enums
- * Modified at: 29/07/2025, 08:03
+ * Modified at: 29/07/2025, 21:22
  * Modified by: pnehls
  */
 
@@ -19,7 +19,6 @@ use PHPUnit\Framework\TestCase;
 use TypeError;
 use ValueError;
 use function count;
-use function is_string;
 
 /**
  * EnumTestCaseTrait
@@ -62,27 +61,25 @@ trait EnumTestCaseTrait
 
             TestCase::assertTrue($anyEnumItem::isName($name));
 
-            if (is_string($name)) {
-                $enum = $anyEnumItem::fromName(strtolower($name), false);
-                TestCase::assertSame($anyEnumItem::class, $enum::class);
-                TestCase::assertSame($name, $enum->name);
+            $enum = $anyEnumItem::fromName(strtolower($name), false);
+            TestCase::assertSame($anyEnumItem::class, $enum::class);
+            TestCase::assertSame($name, $enum->name);
 
-                $enum = $anyEnumItem::fromName(strtoupper($name), false);
-                TestCase::assertSame($anyEnumItem::class, $enum::class);
-                TestCase::assertSame($name, $enum->name);
+            $enum = $anyEnumItem::fromName(strtoupper($name), false);
+            TestCase::assertSame($anyEnumItem::class, $enum::class);
+            TestCase::assertSame($name, $enum->name);
 
-                $enum = $anyEnumItem::tryFromName(strtolower($name), false);
-                // @phpstan-ignore classConstant.nonObject
-                TestCase::assertSame($anyEnumItem::class, $enum::class);
-                // @phpstan-ignore property.nonObject
-                TestCase::assertSame($name, $enum->name);
+            $enum = $anyEnumItem::tryFromName(strtolower($name), false);
+            // @phpstan-ignore classConstant.nonObject
+            TestCase::assertSame($anyEnumItem::class, $enum::class);
+            // @phpstan-ignore property.nonObject
+            TestCase::assertSame($name, $enum->name);
 
-                $enum = $anyEnumItem::tryFromName(strtoupper($name), false);
-                // @phpstan-ignore classConstant.nonObject
-                TestCase::assertSame($anyEnumItem::class, $enum::class);
-                // @phpstan-ignore property.nonObject
-                TestCase::assertSame($name, $enum->name);
-            }
+            $enum = $anyEnumItem::tryFromName(strtoupper($name), false);
+            // @phpstan-ignore classConstant.nonObject
+            TestCase::assertSame($anyEnumItem::class, $enum::class);
+            // @phpstan-ignore property.nonObject
+            TestCase::assertSame($name, $enum->name);
         }
 
         try {

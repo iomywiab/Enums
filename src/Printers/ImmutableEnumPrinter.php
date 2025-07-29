@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ImmutableEnumPrinter.php
  * Project: Enums
- * Modified at: 29/07/2025, 10:52
+ * Modified at: 29/07/2025, 21:29
  * Modified by: pnehls
  */
 
@@ -40,7 +40,7 @@ class ImmutableEnumPrinter implements ImmutableEnumPrinterInterface
 
     /**
      * @param list<UnitEnum>|UnitEnum $enumCases
-     * @return non-empty-string
+     * @return string
      */
     public function toString(array|UnitEnum $enumCases): string
     {
@@ -55,7 +55,7 @@ class ImmutableEnumPrinter implements ImmutableEnumPrinterInterface
 
     /**
      * @param array<array-key,UnitEnum> $cases
-     * @return non-empty-string
+     * @return string
      */
     private function toStringByName(array $cases): string
     {
@@ -79,7 +79,7 @@ class ImmutableEnumPrinter implements ImmutableEnumPrinterInterface
 
     /**
      * @param array<array-key,UnitEnum> $cases
-     * @return non-empty-string
+     * @return string
      */
     private function toStringByValue(array $cases): string
     {
@@ -103,7 +103,7 @@ class ImmutableEnumPrinter implements ImmutableEnumPrinterInterface
 
     /**
      * @param array<array-key,UnitEnum> $cases
-     * @return non-empty-string
+     * @return string
      */
     private function toStringByNameAndValue(array $cases): string
     {

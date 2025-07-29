@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedBackedEnumTrait.php
  * Project: Enums
- * Modified at: 29/07/2025, 08:01
+ * Modified at: 29/07/2025, 21:29
  * Modified by: pnehls
  */
 
@@ -32,6 +32,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function fromName(string $name, ?bool $strict = null): BackedEnum
     {
+        // @phpstan-ignore return.type
         return self::fromNameEnum($name, $strict);
     }
 
@@ -40,6 +41,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function getFirst(): BackedEnum
     {
+        // @phpstan-ignore return.type
         return self::getFirstEnum();
     }
 
@@ -48,6 +50,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function getLast(): BackedEnum
     {
+        // @phpstan-ignore return.type
         return self::getLastEnum();
     }
 
@@ -56,6 +59,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function tryFromName(string $name, ?bool $strict = null): BackedEnum|null
     {
+        // @phpstan-ignore return.type
         return self::tryFromNameEnum($name, $strict);
     }
 

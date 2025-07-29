@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedBackedEnumInterface.php
  * Project: Enums
- * Modified at: 29/07/2025, 07:45
+ * Modified at: 29/07/2025, 21:30
  * Modified by: pnehls
  */
 
@@ -26,7 +26,7 @@ interface ExtendedBackedEnumInterface extends BackedEnum
     public static function fromName(string $name, ?bool $strict = null): BackedEnum;
 
     /**
-     * @param int|string $nameOrValue
+     * @param int|non-empty-string $nameOrValue
      * @param bool|null $strict
      * @return BackedEnum
      */
@@ -80,7 +80,7 @@ interface ExtendedBackedEnumInterface extends BackedEnum
     public static function tryFromName(string $name, ?bool $strict = null): BackedEnum|null;
 
     /**
-     * @param int|string $nameOrValue
+     * @param int|non-empty-string $nameOrValue
      * @param bool|null $strict
      * @return BackedEnum|null
      */
