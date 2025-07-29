@@ -2,6 +2,6 @@
 
 PHP Composer library for PHP enums
 
-[![codecov](https://codecov.io/gh/<user>/<repo>/branch/main/graph/badge.svg)](https://codecov.io/gh/<user>/<repo>)
+![coverage](docs/coverage-badge.svg)
 
 A few extensions for enum handling.

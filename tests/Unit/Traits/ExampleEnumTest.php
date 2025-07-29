@@ -3,7 +3,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExampleEnumTest.php
  * Project: Enums
- * Modified at: 29/07/2025, 08:01
+ * Modified at: 29/07/2025, 13:04
  * Modified by: pnehls
  */
 
