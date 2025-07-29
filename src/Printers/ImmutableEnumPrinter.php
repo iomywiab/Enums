@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ImmutableEnumPrinter.php
  * Project: Enums
- * Modified at: 26/07/2025, 00:34
+ * Modified at: 29/07/2025, 10:52
  * Modified by: pnehls
  */
 
@@ -24,7 +24,7 @@ class ImmutableEnumPrinter implements ImmutableEnumPrinterInterface
 {
     private const DEFAULT_FORMAT = PrintFormatEnum::BOTH;
     private const DEFAULT_SEPARATOR = '|';
-    private const NO_CASES = '*no cases*';
+    private const NO_CASES = '';
     private readonly PrintFormatEnum $format;
     private readonly string $separator;
 

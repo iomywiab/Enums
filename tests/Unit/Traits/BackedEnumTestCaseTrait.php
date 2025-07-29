@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: BackedEnumTestCaseTrait.php
  * Project: Enums
- * Modified at: 26/07/2025, 01:04
+ * Modified at: 29/07/2025, 07:55
  * Modified by: pnehls
  */
 
@@ -15,7 +15,6 @@ namespace Iomywiab\Tests\Enums\Unit\Traits;
 use Iomywiab\Library\Enums\Traits\ExtendedBackedEnumInterface;
 use PHPUnit\Framework\TestCase;
 use ValueError;
-use function count;
 use function is_int;
 use function is_string;
 
@@ -40,21 +39,10 @@ trait BackedEnumTestCaseTrait
     ): void {
         $this->checkEnum($anyEnumItem, $names);
 
-        TestCase::assertEquals($values, $anyEnumItem::getAllValues());
-        TestCase::assertEquals($values[0], $anyEnumItem::getFirst()->value);
-        /** @noinspection OffsetOperationsInspection */
-        TestCase::assertEquals($values[count($names) - 1], $anyEnumItem::getLast()->value);
-
-        foreach ($names as $key => $name) {
-            $enum = $anyEnumItem::fromName($name);
-            TestCase::assertEquals($values[$key], $enum->value);
-
-            $enum = $anyEnumItem::tryFromName($name);
-            // @phpstan-ignore property.nonObject
-            TestCase::assertEquals($values[$key], $enum->value);
-        }
-
         foreach ($values as $key => $value) {
+            // @phpstan-ignore argument.type
+            TestCase::assertTrue($anyEnumItem::isValue($value));
+
             // @phpstan-ignore argument.type
             $enum = $anyEnumItem::fromValue($value);
             TestCase::assertSame($value, $enum->value);
@@ -68,7 +56,42 @@ trait BackedEnumTestCaseTrait
             TestCase::assertEquals($values[$key], $enum->value);
 
             // @phpstan-ignore argument.type
-            TestCase::assertTrue($anyEnumItem::isValue($value));
+            $enum = $anyEnumItem::fromNameOrValue($value);
+            TestCase::assertSame($value, $enum->value);
+            /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
+            TestCase::assertEquals($values[$key], $enum->value);
+
+            $enum = $anyEnumItem::fromNameOrValue($value, false);
+            TestCase::assertSame($value, $enum->value);
+            /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
+            // @phpstan-ignore argument.type
+            TestCase::assertEquals($values[$key], $enum->value);
+
+            if (is_string($value)) {
+                $enum = $anyEnumItem::fromValue(strtolower($value), false);
+                TestCase::assertSame($value, $enum->value);
+                /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
+                // @phpstan-ignore argument.type
+                TestCase::assertEquals($values[$key], $enum->value);
+
+                $enum = $anyEnumItem::fromValue(strtoupper($value), false);
+                TestCase::assertSame($value, $enum->value);
+                /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
+                // @phpstan-ignore argument.type
+                TestCase::assertEquals($values[$key], $enum->value);
+
+                $enum = $anyEnumItem::fromNameOrValue(strtolower($value), false);
+                TestCase::assertSame($value, $enum->value);
+                /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
+                // @phpstan-ignore argument.type
+                TestCase::assertEquals($values[$key], $enum->value);
+
+                $enum = $anyEnumItem::fromNameOrValue(strtoupper($value), false);
+                TestCase::assertSame($value, $enum->value);
+                /** @noinspection PhpArrayAccessCanBeReplacedWithForeachValueInspection */
+                // @phpstan-ignore argument.type
+                TestCase::assertEquals($values[$key], $enum->value);
+            }
         }
 
         TestCase::assertEquals($values, $anyEnumItem::getAllValues());

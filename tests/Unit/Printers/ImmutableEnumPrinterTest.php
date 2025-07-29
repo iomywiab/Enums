@@ -3,7 +3,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ImmutableEnumPrinterTest.php
  * Project: Enums
- * Modified at: 26/07/2025, 01:51
+ * Modified at: 29/07/2025, 10:52
  * Modified by: pnehls
  */
 
@@ -50,5 +50,15 @@ class ImmutableEnumPrinterTest extends TestCase
         self::assertSame($nameList, (new ImmutableEnumPrinter(PrintFormatEnum::NAME))->toString($enum::cases()));
         self::assertSame($valueList, (new ImmutableEnumPrinter(PrintFormatEnum::VALUE))->toString($enum::cases()));
         self::assertSame($bothList, (new ImmutableEnumPrinter(PrintFormatEnum::BOTH))->toString($enum::cases()));
+    }
+
+    /**
+     * @return void
+     */
+    public function testToStringEmpty(): void
+    {
+        self::assertSame('', (new ImmutableEnumPrinter(PrintFormatEnum::NAME))->toString([]));
+        self::assertSame('', (new ImmutableEnumPrinter(PrintFormatEnum::VALUE))->toString([]));
+        self::assertSame('', (new ImmutableEnumPrinter(PrintFormatEnum::BOTH))->toString([]));
     }
 }

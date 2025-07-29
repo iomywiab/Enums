@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: EnumTestCaseTrait.php
  * Project: Enums
- * Modified at: 26/07/2025, 01:02
+ * Modified at: 29/07/2025, 08:03
  * Modified by: pnehls
  */
 
@@ -16,8 +16,10 @@ use InvalidArgumentException;
 use Iomywiab\Library\Enums\Traits\ExtendedBackedEnumInterface;
 use Iomywiab\Library\Enums\Traits\ExtendedEnumInterface;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use ValueError;
 use function count;
+use function is_string;
 
 /**
  * EnumTestCaseTrait
@@ -59,6 +61,28 @@ trait EnumTestCaseTrait
             TestCase::assertSame($name, $enum->name);
 
             TestCase::assertTrue($anyEnumItem::isName($name));
+
+            if (is_string($name)) {
+                $enum = $anyEnumItem::fromName(strtolower($name), false);
+                TestCase::assertSame($anyEnumItem::class, $enum::class);
+                TestCase::assertSame($name, $enum->name);
+
+                $enum = $anyEnumItem::fromName(strtoupper($name), false);
+                TestCase::assertSame($anyEnumItem::class, $enum::class);
+                TestCase::assertSame($name, $enum->name);
+
+                $enum = $anyEnumItem::tryFromName(strtolower($name), false);
+                // @phpstan-ignore classConstant.nonObject
+                TestCase::assertSame($anyEnumItem::class, $enum::class);
+                // @phpstan-ignore property.nonObject
+                TestCase::assertSame($name, $enum->name);
+
+                $enum = $anyEnumItem::tryFromName(strtoupper($name), false);
+                // @phpstan-ignore classConstant.nonObject
+                TestCase::assertSame($anyEnumItem::class, $enum::class);
+                // @phpstan-ignore property.nonObject
+                TestCase::assertSame($name, $enum->name);
+            }
         }
 
         try {
@@ -70,13 +94,21 @@ trait EnumTestCaseTrait
         self::assertNull($anyEnumItem::tryFromName('jf8934fhw89zt59'));
 
         try {
+            /** @noinspection PhpStrictTypeCheckingInspection */
             // @phpstan-ignore argument.type
             $anyEnumItem::fromName(123456);
             TestCase::fail('Got: none. Expected: '.InvalidArgumentException::class);
-        } catch (ValueError) {
+        } catch (TypeError) {
             // no code. expected behavior
         }
-        // @phpstan-ignore argument.type
-        self::assertNull($anyEnumItem::tryFromName(123456));
+
+        try {
+            /** @noinspection PhpStrictTypeCheckingInspection */
+            // @phpstan-ignore argument.type
+            $anyEnumItem::tryFromName(123456);
+            TestCase::fail('Got: none. Expected: '.InvalidArgumentException::class);
+        } catch (TypeError) {
+            // no code. expected behavior
+        }
     }
 }

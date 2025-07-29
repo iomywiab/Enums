@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedBackedEnumTrait.php
  * Project: Enums
- * Modified at: 26/07/2025, 01:08
+ * Modified at: 29/07/2025, 08:01
  * Modified by: pnehls
  */
 
@@ -25,12 +25,14 @@ use function strtolower;
  */
 trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
 {
+    use ExtendedEnumSharedTrait;
+
     /**
      * @inheritDoc
      */
-    public static function getAllNames(): array
+    public static function fromName(string $name, ?bool $strict = null): BackedEnum
     {
-        return array_column(self::cases(), 'name');
+        return self::fromNameEnum($name, $strict);
     }
 
     /**
@@ -38,10 +40,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function getFirst(): BackedEnum
     {
-        $cases = self::cases();
-        $key = array_key_first($cases);
-
-        return $cases[$key];
+        return self::getFirstEnum();
     }
 
     /**
@@ -49,50 +48,15 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function getLast(): BackedEnum
     {
-        $cases = self::cases();
-        $key = array_key_last($cases);
-
-        return $cases[$key];
+        return self::getLastEnum();
     }
 
     /**
      * @inheritDoc
      */
-    public static function isName(string $name): bool
+    public static function tryFromName(string $name, ?bool $strict = null): BackedEnum|null
     {
-        $names = array_column(self::cases(), 'name');
-
-        return in_array($name, $names, true);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function tryFromName(mixed $name, ?bool $strict = null): BackedEnum|null
-    {
-        try {
-
-            return self::fromName($name, $strict);
-        } catch (Throwable) {
-            return null;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromName(mixed $name, ?bool $strict = null): BackedEnum
-    {
-        $strict = (true === $strict);
-        $searchedValue = $strict ? strtolower($name) : $name;
-        foreach (self::cases() as $case) {
-            $caseName = $strict ? strtolower($case->name) : $case->name;
-            if ($caseName === $searchedValue) {
-                return $case;
-            }
-        }
-
-        throw new UnknownEnumValueException(static::class, self::cases(), $name);
+        return self::tryFromNameEnum($name, $strict);
     }
 
     /**
@@ -114,7 +78,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function tryFromValue(mixed $value, ?bool $strict = null): ?BackedEnum
+    public static function tryFromValue(int|string $value, ?bool $strict = null): ?BackedEnum
     {
         try {
             return self::fromValue($value, $strict);
@@ -128,7 +92,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function fromValue(int|string $value, ?bool $strict = null): BackedEnum
     {
-        if ((false !== $strict) || !is_string($value)) {
+        if ((true === $strict) || !is_string($value)) {
             return static::from($value);
         }
 
@@ -145,5 +109,27 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
         }
 
         throw new UnknownEnumValueException(static::class, self::cases(), $value);
+    }
+
+    /**
+     * @inherit
+     */
+    public static function fromNameOrValue(int|string $nameOrValue, ?bool $strict = null): BackedEnum
+    {
+        return is_string($nameOrValue)
+            ? self::tryFromName($nameOrValue, $strict) ?? self::fromValue($nameOrValue, $strict)
+            : self::fromValue($nameOrValue, $strict);
+    }
+
+    /**
+     * @inherit
+     */
+    public static function tryFromNameOrValue(int|string $nameOrValue, ?bool $strict = null): BackedEnum|null
+    {
+        try {
+            return self::fromNameOrValue($nameOrValue, $strict);
+        } catch (Throwable) {
+            return null;
+        }
     }
 }
