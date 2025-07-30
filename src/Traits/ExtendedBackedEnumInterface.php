@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedBackedEnumInterface.php
  * Project: Enums
- * Modified at: 29/07/2025, 21:30
+ * Modified at: 30/07/2025, 12:18
  * Modified by: pnehls
  */
 
@@ -26,7 +26,7 @@ interface ExtendedBackedEnumInterface extends BackedEnum
     public static function fromName(string $name, ?bool $strict = null): BackedEnum;
 
     /**
-     * @param int|non-empty-string $nameOrValue
+     * @param int|string $nameOrValue
      * @param bool|null $strict
      * @return BackedEnum
      */
@@ -61,16 +61,16 @@ interface ExtendedBackedEnumInterface extends BackedEnum
     public static function getLast(): BackedEnum;
 
     /**
-     * @param non-empty-string $name
+     * @param mixed $name
      * @return bool
      */
-    public static function isName(string $name): bool;
+    public static function isName(mixed $name): bool;
 
     /**
-     * @param int|non-empty-string $value
+     * @param mixed $value
      * @return bool
      */
-    public static function isValue(int|string $value): bool;
+    public static function isValue(mixed $value): bool;
 
     /**
      * @param non-empty-string $name
@@ -80,16 +80,16 @@ interface ExtendedBackedEnumInterface extends BackedEnum
     public static function tryFromName(string $name, ?bool $strict = null): BackedEnum|null;
 
     /**
-     * @param int|non-empty-string $nameOrValue
+     * @param int|string $nameOrValue
      * @param bool|null $strict
      * @return BackedEnum|null
      */
     public static function tryFromNameOrValue(int|string $nameOrValue, ?bool $strict = null): BackedEnum|null;
 
     /**
-     * @param int|string $name
+     * @param int|string $value
      * @param bool|null $strict
      * @return BackedEnum|null
      */
-    public static function tryFromValue(int|string $name, ?bool $strict = null): BackedEnum|null;
+    public static function tryFromValue(int|string $value, ?bool $strict = null): BackedEnum|null;
 }

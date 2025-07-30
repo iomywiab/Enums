@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedBackedEnumTrait.php
  * Project: Enums
- * Modified at: 29/07/2025, 21:29
+ * Modified at: 30/07/2025, 12:23
  * Modified by: pnehls
  */
 
@@ -25,15 +25,22 @@ use function strtolower;
  */
 trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
 {
-    use ExtendedEnumSharedTrait;
+    use ExtendedEnumTrait {
+        fromName as private fromNameEnum;
+        getFirst as private getFirstEnum;
+        getLast as private getLastEnum;
+        tryFromName as private tryFromNameEnum;
+    }
 
     /**
      * @inheritDoc
      */
     public static function fromName(string $name, ?bool $strict = null): BackedEnum
     {
-        // @phpstan-ignore return.type
-        return self::fromNameEnum($name, $strict);
+        /** @var BackedEnum $result */
+        $result = self::fromNameEnum($name, $strict);
+
+        return $result;
     }
 
     /**
@@ -41,8 +48,10 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function getFirst(): BackedEnum
     {
-        // @phpstan-ignore return.type
-        return self::getFirstEnum();
+        /** @var BackedEnum $result */
+        $result = self::getFirstEnum();
+
+        return $result;
     }
 
     /**
@@ -50,8 +59,10 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function getLast(): BackedEnum
     {
-        // @phpstan-ignore return.type
-        return self::getLastEnum();
+        /** @var BackedEnum $result */
+        $result = self::getLastEnum();
+
+        return $result;
     }
 
     /**
@@ -59,16 +70,22 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function tryFromName(string $name, ?bool $strict = null): BackedEnum|null
     {
-        // @phpstan-ignore return.type
-        return self::tryFromNameEnum($name, $strict);
+        /** @var BackedEnum|null $result */
+        $result = self::tryFromNameEnum($name, $strict);
+
+        return $result;
     }
 
     /**
      * @inheritDoc
      */
-    public static function isValue(int|string $value): bool
+    public static function isValue(mixed $value): bool
     {
-        return in_array($value, self::getAllValues(), true);
+        if (is_string($value) || is_int($value)) {
+            return in_array($value, self::getAllValues(), true);
+        }
+
+        return false;
     }
 
     /**
@@ -120,7 +137,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
      */
     public static function fromNameOrValue(int|string $nameOrValue, ?bool $strict = null): BackedEnum
     {
-        return is_string($nameOrValue)
+        return is_string($nameOrValue) && ('' !== $nameOrValue)
             ? self::tryFromName($nameOrValue, $strict) ?? self::fromValue($nameOrValue, $strict)
             : self::fromValue($nameOrValue, $strict);
     }

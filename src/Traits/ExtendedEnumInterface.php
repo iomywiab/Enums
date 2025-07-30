@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedEnumInterface.php
  * Project: Enums
- * Modified at: 26/07/2025, 01:12
+ * Modified at: 30/07/2025, 12:18
  * Modified by: pnehls
  */
 
@@ -44,10 +44,10 @@ interface ExtendedEnumInterface extends UnitEnum
     public static function getLast(): UnitEnum;
 
     /**
-     * @param non-empty-string $name
+     * @param mixed $name
      * @return bool
      */
-    public static function isName(string $name): bool;
+    public static function isName(mixed $name): bool;
 
     /**
      * @param non-empty-string $name

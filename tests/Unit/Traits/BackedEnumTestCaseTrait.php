@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: BackedEnumTestCaseTrait.php
  * Project: Enums
- * Modified at: 29/07/2025, 21:33
+ * Modified at: 30/07/2025, 12:18
  * Modified by: pnehls
  */
 
@@ -40,7 +40,6 @@ trait BackedEnumTestCaseTrait
         $this->checkEnum($anyEnumItem, $names);
 
         foreach ($values as $key => $value) {
-            // @phpstan-ignore argument.type
             TestCase::assertTrue($anyEnumItem::isValue($value));
 
             // @phpstan-ignore argument.type
