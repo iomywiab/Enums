@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: EnumTestCaseTrait.php
  * Project: Enums
- * Modified at: 29/07/2025, 21:22
+ * Modified at: 30/07/2025, 14:11
  * Modified by: pnehls
  */
 
@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Iomywiab\Tests\Enums\Unit\Traits;
 
 use InvalidArgumentException;
-use Iomywiab\Library\Enums\Traits\ExtendedBackedEnumInterface;
 use Iomywiab\Library\Enums\Traits\ExtendedEnumInterface;
 use PHPUnit\Framework\TestCase;
 use TypeError;
@@ -26,12 +25,12 @@ use function count;
 trait EnumTestCaseTrait
 {
     /**
-     * @param ExtendedEnumInterface|ExtendedBackedEnumInterface $anyEnumItem
+     * @param ExtendedEnumInterface $anyEnumItem
      * @param list<non-empty-string> $names
      * @return void
      * @noinspection PhpMultipleClassDeclarationsInspection
      */
-    protected function checkEnum(ExtendedEnumInterface|ExtendedBackedEnumInterface $anyEnumItem, array $names): void
+    protected function checkEnum(ExtendedEnumInterface $anyEnumItem, array $names): void
     {
         TestCase::assertEquals($names, $anyEnumItem::getAllNames());
         TestCase::assertEquals($names[0], $anyEnumItem::getFirst()->name);
@@ -95,10 +94,12 @@ trait EnumTestCaseTrait
             // @phpstan-ignore argument.type
             $anyEnumItem::fromName(123456);
             TestCase::fail('Got: none. Expected: '.InvalidArgumentException::class);
+            // @phpstan-ignore catch.neverThrown
         } catch (TypeError) {
             // no code. expected behavior
         }
 
+        // @phpstan-ignore deadCode.unreachable
         try {
             /** @noinspection PhpStrictTypeCheckingInspection */
             // @phpstan-ignore argument.type

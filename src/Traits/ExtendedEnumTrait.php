@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedEnumTrait.php
  * Project: Enums
- * Modified at: 30/07/2025, 12:20
+ * Modified at: 30/07/2025, 14:06
  * Modified by: pnehls
  */
 
@@ -14,7 +14,6 @@ namespace Iomywiab\Library\Enums\Traits;
 
 use Iomywiab\Library\Enums\Exceptions\UnknownEnumValueException;
 use Throwable;
-use UnitEnum;
 use function assert;
 
 trait ExtendedEnumTrait // implements ExtendedEnumInterface
@@ -44,7 +43,7 @@ trait ExtendedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function fromName(string $name, ?bool $strict = null): UnitEnum
+    public static function fromName(string $name, ?bool $strict = null): static
     {
         // @phpstan-ignore voku.NotIdentical
         assert('' !== $name);
@@ -64,7 +63,7 @@ trait ExtendedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function getFirst(): UnitEnum
+    public static function getFirst(): static
     {
         $cases = self::cases();
         $key = array_key_first($cases);
@@ -75,7 +74,7 @@ trait ExtendedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function getLast(): UnitEnum
+    public static function getLast(): static
     {
         $cases = self::cases();
         $key = array_key_last($cases);
@@ -86,7 +85,7 @@ trait ExtendedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function tryFromName(string $name, ?bool $strict = null): UnitEnum|null
+    public static function tryFromName(string $name, ?bool $strict = null): static|null
     {
         try {
             // @phpstan-ignore voku.NotIdentical

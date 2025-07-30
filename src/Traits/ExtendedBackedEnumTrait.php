@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedBackedEnumTrait.php
  * Project: Enums
- * Modified at: 30/07/2025, 12:23
+ * Modified at: 30/07/2025, 14:06
  * Modified by: pnehls
  */
 
@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Iomywiab\Library\Enums\Traits;
 
-use BackedEnum;
 use Iomywiab\Library\Enums\Exceptions\UnknownEnumValueException;
 use Throwable;
 use function array_column;
@@ -25,56 +24,7 @@ use function strtolower;
  */
 trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
 {
-    use ExtendedEnumTrait {
-        fromName as private fromNameEnum;
-        getFirst as private getFirstEnum;
-        getLast as private getLastEnum;
-        tryFromName as private tryFromNameEnum;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function fromName(string $name, ?bool $strict = null): BackedEnum
-    {
-        /** @var BackedEnum $result */
-        $result = self::fromNameEnum($name, $strict);
-
-        return $result;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getFirst(): BackedEnum
-    {
-        /** @var BackedEnum $result */
-        $result = self::getFirstEnum();
-
-        return $result;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getLast(): BackedEnum
-    {
-        /** @var BackedEnum $result */
-        $result = self::getLastEnum();
-
-        return $result;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function tryFromName(string $name, ?bool $strict = null): BackedEnum|null
-    {
-        /** @var BackedEnum|null $result */
-        $result = self::tryFromNameEnum($name, $strict);
-
-        return $result;
-    }
+    use ExtendedEnumTrait;
 
     /**
      * @inheritDoc
@@ -99,7 +49,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function tryFromValue(int|string $value, ?bool $strict = null): ?BackedEnum
+    public static function tryFromValue(int|string $value, ?bool $strict = null): ?static
     {
         try {
             return self::fromValue($value, $strict);
@@ -111,7 +61,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inheritDoc
      */
-    public static function fromValue(int|string $value, ?bool $strict = null): BackedEnum
+    public static function fromValue(int|string $value, ?bool $strict = null): static
     {
         if ((true === $strict) || !is_string($value)) {
             return static::from($value);
@@ -135,7 +85,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inherit
      */
-    public static function fromNameOrValue(int|string $nameOrValue, ?bool $strict = null): BackedEnum
+    public static function fromNameOrValue(int|string $nameOrValue, ?bool $strict = null): static
     {
         return is_string($nameOrValue) && ('' !== $nameOrValue)
             ? self::tryFromName($nameOrValue, $strict) ?? self::fromValue($nameOrValue, $strict)
@@ -145,7 +95,7 @@ trait ExtendedBackedEnumTrait // implements ExtendedEnumInterface
     /**
      * @inherit
      */
-    public static function tryFromNameOrValue(int|string $nameOrValue, ?bool $strict = null): BackedEnum|null
+    public static function tryFromNameOrValue(int|string $nameOrValue, ?bool $strict = null): static|null
     {
         try {
             return self::fromNameOrValue($nameOrValue, $strict);

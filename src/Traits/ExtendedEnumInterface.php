@@ -4,7 +4,7 @@
  * Copyright (c) 2022-2025 Iomywiab/PN, Hamburg, Germany. All rights reserved
  * File name: ExtendedEnumInterface.php
  * Project: Enums
- * Modified at: 30/07/2025, 12:18
+ * Modified at: 30/07/2025, 14:06
  * Modified by: pnehls
  */
 
@@ -23,10 +23,10 @@ interface ExtendedEnumInterface extends UnitEnum
     /**
      * @param non-empty-string $name
      * @param bool|null $strict
-     * @return UnitEnum
+     * @return static
      * @throws UnknownEnumValueException
      */
-    public static function fromName(string $name, ?bool $strict = null): UnitEnum;
+    public static function fromName(string $name, ?bool $strict = null): static;
 
     /**
      * @return list<non-empty-string>
@@ -34,14 +34,14 @@ interface ExtendedEnumInterface extends UnitEnum
     public static function getAllNames(): array;
 
     /**
-     * @return UnitEnum
+     * @return static
      */
-    public static function getFirst(): UnitEnum;
+    public static function getFirst(): static;
 
     /**
-     * @return UnitEnum
+     * @return static
      */
-    public static function getLast(): UnitEnum;
+    public static function getLast(): static;
 
     /**
      * @param mixed $name
@@ -52,7 +52,7 @@ interface ExtendedEnumInterface extends UnitEnum
     /**
      * @param non-empty-string $name
      * @param bool|null $strict
-     * @return UnitEnum|null
+     * @return static|null
      */
-    public static function tryFromName(string $name, ?bool $strict = null): UnitEnum|null;
+    public static function tryFromName(string $name, ?bool $strict = null): static|null;
 }
